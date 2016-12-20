@@ -1,0 +1,260 @@
+﻿@model Karate.Models.StudentSkillLevel
+
+<script   type="text/javascript">
+
+
+   
+
+    function a(evt)
+    {
+        elmtid = evt.id;  
+        //alert(elmtid.substr(4)); //img + space 
+
+        
+        var imagesrc = evt.src;        
+        var imagesrcLength = imagesrc.length;
+        var imgNum = imagesrc.substr(imagesrcLength - 5, 1);
+
+        //alert(imgNum);
+        if (imgNum == "0") {
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Taught").prop("checked", true);
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Practiced").prop("checked", false);
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Stripe").prop("checked", false);
+            evt.src = "/Images/1.gif";
+        }
+
+        if (imgNum == "1") {
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Taught").prop("checked", true);
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Practiced").prop("checked", true);
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Stripe").prop("checked", false);
+            evt.src = "/Images/2.gif";
+        }
+
+        if (imgNum == "2") {
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Taught").prop("checked", true);
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Practiced").prop("checked", true);
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Stripe").prop("checked", true);
+            evt.src = "/Images/3.gif";
+        }
+
+        if (imgNum == "3") {
+
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Taught").prop("checked", false);
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Practiced").prop("checked", false);
+            $("#SkillLevelDetail_" + elmtid.substr(4) + "__Stripe").prop("checked", false);
+            //$(evt).disabled = true;
+            evt.src = "/Images/0.gif";
+        }
+
+    }
+
+    function setCompleteStatus()
+    {
+        alert("x00");
+    }
+    
+    //$(document).ready(function () {
+    //    $('img1').click(function (event) {
+
+
+    //        //event.preventDefault();
+    //        alert('You Clicked Me');
+    //    });
+    //});
+
+</script>
+
+@*@{ string category = string.Empty; }*@
+
+@{    string displayName = Model.StudentInfo.LastName + ", " + Model.StudentInfo.FirstName; }
+
+@{ 
+    string color = string.Empty;
+    if (Model.StudentInfo.LevelID == 1)
+    {
+        color = "white";
+    }
+    else if (Model.StudentInfo.LevelID == 2)
+    {
+        color = "yellow";
+    }
+    else if (Model.StudentInfo.LevelID == 3)
+    {
+        color = "green";
+    }
+    else if (Model.StudentInfo.LevelID == 4)
+    {
+        color = "blue";
+    }
+    else
+    {
+        color = "black";
+    }
+
+
+}
+
+@{
+    ViewBag.Title = "Book";
+    <div style="background-color:@color; position: fixed; text-transform:capitalize;">
+             @displayName 
+    </div>
+    @*if (Model.StudentInfo.LevelID == 1)
+    {
+        <div style="background-color:@color;">@displayName </div>
+    }
+    else if (Model.StudentInfo.LevelID == 2)
+    {
+        <div style="background-color: @color;">@displayName</div>
+    }
+    else if (Model.StudentInfo.LevelID == 3)
+    {
+        <div style="background-color:@color;">@displayName</div>
+    }*@
+}
+
+    <h2>Book</h2>
+    @{ int level = Model.StudentInfo.LevelID;  }
+
+
+    @using (Html.BeginForm("Book", "Students", FormMethod.Post, color))
+    {
+        <table class="table" style="border: 4px solid black; background-color:@color;">
+
+            @*@foreach (var grp in Model.SkillLevelDetail.GroupBy(x => x.SkillInfo.SkillCaegory.SkillCategoryName))
+                {
+                    @Html.Encode(grp.Key) <br />
+                }*@
+
+
+            @{ string category = string.Empty;  }
+
+            <tr style="border: 2px solid black; ">
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+
+                <th>
+
+                </th>
+
+                <th>
+
+                </th>
+
+                <th>
+                    Name
+                </th>
+                <th style="visibility:collapse; display:none;">
+                    Taught
+                </th>
+
+                <th style="visibility:collapse; display:none;">
+                    Practiced
+                </th>
+
+                <th style="visibility:collapse; display:none;">
+                    Stripe
+                </th>
+
+                <th>
+
+                </th>
+
+            </tr>
+
+
+
+            @for (int i = 0; i < Model.SkillLevelDetail.Count; i++)
+            {
+
+
+                <tr>
+                    <td style="font-style:oblique; font-weight: bold;">
+                        @{
+
+                            if (category != Model.SkillLevelDetail[i].SkillInfo.SkillCaegory.SkillCategoryName)
+                            {
+                                category = Model.SkillLevelDetail[i].SkillInfo.SkillCaegory.SkillCategoryName;
+                                @Html.Encode(category);
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.HiddenFor(m => m.SkillLevelDetail[i].SkillID)
+                    </td>
+
+                    <td>
+                        @Html.HiddenFor(m => m.SkillLevelDetail[i].SkillLevelID)
+                    </td>
+
+                    <td>
+                        @Html.HiddenFor(m => m.SkillLevelDetail[i].LevelID)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(m => m.SkillLevelDetail[i].SkillInfo.SkillName)
+                    </td>
+                    <td style="visibility:collapse; display:none;">
+                        @Html.Hidden("SkillLevel.Index", (@i + 10))
+                        @Html.CheckBoxFor(m => m.SkillLevelDetail[i].Taught, new { @checked = "checked" })
+                    </td>
+
+                    <td style="visibility:collapse; display:none;">
+                        @Html.Hidden("SkillLevel.Index", (@i + 10))
+                        @Html.CheckBoxFor(m => m.SkillLevelDetail[i].Practiced, new { @checked = "checked" })
+                    </td>
+
+                    <td style="visibility:collapse; display:none;">
+                        @Html.Hidden("SkillLevel.Index", (@i + 10))
+                        @Html.CheckBoxFor(m => m.SkillLevelDetail[i].Stripe, new { @checked = "checked" })
+                    </td>
+
+                    <td>
+                        @*@Html.Image( Url.Content( "~/Images/1.jpg" ),
+                            "alt text",
+                            "return a(this)",
+                            new { id = "myImage", border = "0" } )
+                            %>*@
+
+                        @*@Html.CheckBoxFor(m => m.SkillLevelDetail[i].Stripe,  new { @checked = "checked" , @onclick = "setCompleteStatus()",
+                            @src= "~/Images/1.jpg"})*@
+
+                        @Html.Hidden("SkillLevel.Index" + @i, (@i + 10))
+                        <img id="img @i" src="~/Images/0.gif" width="20px" class="img-responsive" onclick="return a(this);" />
+                    </td>
+
+                </tr>
+                            }
+
+
+            <tr>
+                <td colspan="6" align="right">
+                    <input type="submit" value="Submit" class="btn-success" />
+                </td>
+            </tr>
+        </table>
+                            }
+
+    @*@using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>StudentSkillLevel</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }*@
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>

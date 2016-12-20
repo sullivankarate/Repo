@@ -1,0 +1,97 @@
+﻿@model Karate.Models.Student
+
+@{
+    ViewBag.Title = "Student Detail";
+}
+
+<h2>Details</h2>
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.LocationID, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-13">
+        @*@Html.DropDownListFor(model => model.LocationID, Model.Locations.Select(x => new SelectListItem() { Value = x.LocationID.ToString(), Text =  x.LocationName } )) , "Please select");*@
+
+        @Html.DropDownListFor(model => model.LocationID, new SelectList(Model.Locations.Select(y =>
+                        new SelectListItem() { Text = y.LocationID.ToString(), Value = y.LocationName }), "Text", "Value"), "Please Select")
+
+        @*@Html.EditorFor(model => model.LocationID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Zip, "", new { @class = "text-danger" })*@
+    </div>
+</div>
+
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Zip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zip)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StudentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
