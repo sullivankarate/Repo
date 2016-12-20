@@ -237,6 +237,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\ui.jqgrid.css" />
+    <Content Include="DB\script_0415.sql" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -246,6 +247,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Home\Helper\skin.php" />
+    <Content Include="DB\DBBackUp" />
+    <Content Include="DB\DB_04152016" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Home\Helper\calendar-jos.css" />
     <Content Include="Home\Helper\calendar-setup.js" />
